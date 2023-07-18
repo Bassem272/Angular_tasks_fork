@@ -25,10 +25,11 @@ export class ProductsComponent {
     this.avaliableCount = 0;
     this.all = this.products.length;
     this.setCounts();
+  }getProducts(): Product[] {
+    return this.products.filter(product => this.shouldBeViewed(product));
   }
-  getProducts(): Product[] {
-    return this.products;
-  }
+
+
   private setCounts():void{
     this.products.forEach((product)=>{
       if(product.isFeatured) this.featured++;
@@ -40,12 +41,17 @@ export class ProductsComponent {
   onFilterChanged(selectedFilter:string){
     console.log('item',selectedFilter)
    this.filter = selectedFilter;
-  }
-  shouldBeViewed(product:Product):boolean{
-
-    if(this.filter =="All")return true;
-    if(this.filter =="Avaliable" && product.isAvailable) return true;
-    if(this.filter =="Featured" && product.isFeatured) return true;
+  }shouldBeViewed(product: Product): boolean {
+    if (this.filter === "All") {
+      return true;
+    }
+    if (this.filter === "Avaliable" && product.isAvailable) {
+      return true;
+    }
+    if (this.filter === "Featured" && product.isFeatured) {
+      return true;
+    }
     return false;
   }
+
 }
